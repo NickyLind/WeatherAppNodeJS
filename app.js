@@ -1,4 +1,5 @@
 const request = require('request');
+const geocode = require('./utils/geocode');
 
 // const url = 'http://api.weatherstack.com/current?access_key=32169b2fd90037874dc5d0a0e97de9ad&query=37.8267,-122.4233&units=f'
 
@@ -13,16 +14,7 @@ const request = require('request');
 //   }
 // });
 
-const geocodingURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/ASSFUCK.json?access_token=pk.eyJ1IjoibGluZGEwOTMiLCJhIjoiY2t0ejhwZTN0M2FzaTJvcDNnaTJ5enJ4eSJ9.nDI9-uHMJ14I0LjTJakqqg&limit=1'
-
-request({ url: geocodingURL, json: true }, (error, response) => {
-  if(error) {
-    console.log(`There was an error: ${error}`);
-  } else if (response.body.features.length === 0) {
-      console.log(`There was an error - unable to find location`);
-  } else {
-    const data = response.body.features[0].center
-    const [long, lat] = data
-    console.log(`longitude: ${long}, latitude: ${lat}`);
-  }
+geocode('Duluth Minnesota', (error, data) => {
+  console.log('Error' , error);
+  console.log('Data: ', data);
 });
